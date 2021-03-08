@@ -4,7 +4,7 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
@@ -20,10 +20,10 @@ verifyToken = (req, res, next) => {
   });
 };
 
-isAdmin = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
+const isAdmin = (req, res, next) => {
+  User.findById(req.userId).exec((error, user) => {
+    if (error) {
+      res.status(500).send({ message: error });
       return;
     }
 
@@ -51,10 +51,10 @@ isAdmin = (req, res, next) => {
   });
 };
 
-isModerator = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
+const isCompany = (req, res, next) => {
+  User.findById(req.userId).exec((error, user) => {
+    if (error) {
+      res.status(500).send({ message: error });
       return;
     }
 
@@ -69,13 +69,13 @@ isModerator = (req, res, next) => {
         }
 
         for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "moderator") {
+          if (roles[i].name === "company") {
             next();
             return;
           }
         }
 
-        res.status(403).send({ message: "Require Moderator Role!" });
+        res.status(403).send({ message: "Require Company Role!" });
         return;
       }
     );
@@ -85,6 +85,6 @@ isModerator = (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isModerator
+  isCompany
 };
 module.exports = authJwt;

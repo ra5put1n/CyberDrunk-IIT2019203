@@ -26,7 +26,7 @@ db.mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    console.log("Successfully connect to MongoDB.");
+    console.log("Successfully connected to MongoDB.");
     initial();
   })
   .catch(err => {
@@ -36,7 +36,7 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to IIITA Internship portal application." });
 });
 
 // routes
@@ -50,8 +50,8 @@ app.listen(PORT, () => {
 });
 
 function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
+  Role.estimatedDocumentCount((error, count) => {
+    if (!error && count === 0) {
       new Role({
         name: "user"
       }).save(err => {
@@ -63,13 +63,13 @@ function initial() {
       });
 
       new Role({
-        name: "moderator"
+        name: "company"
       }).save(err => {
         if (err) {
           console.log("error", err);
         }
 
-        console.log("added 'moderator' to roles collection");
+        console.log("added 'company' to roles collection");
       });
 
       new Role({

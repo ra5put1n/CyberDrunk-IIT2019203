@@ -13,9 +13,9 @@ exports.signup = (req, res) => {
     password: bcrypt.hashSync(req.body.password, 8)
   });
 
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
+  user.save((error, user) => {
+    if (error) {
+      res.status(500).send({ message: error });
       return;
     }
 
@@ -31,9 +31,9 @@ exports.signup = (req, res) => {
           }
 
           user.roles = roles.map(role => role._id);
-          user.save(err => {
-            if (err) {
-              res.status(500).send({ message: err });
+          user.save(er => {
+            if (er) {
+              res.status(500).send({ message: er });
               return;
             }
 
@@ -42,9 +42,9 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
+      Role.findOne({ name: "user" }, (errr, role) => {
+        if (errr) {
+          res.status(500).send({ message: errr });
           return;
         }
 
